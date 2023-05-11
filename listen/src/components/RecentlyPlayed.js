@@ -8,28 +8,28 @@ const RecentlyPlayed = () => {
       poster: "/assets/images/miAmorPoster.jpg",
       artist: "Sharn",
       artistImg: "/assets/images/miAmorArtist.jpg",
-      release_Date: "2022",
+      releaseDate: "2022",
     },
     {
       name: "Kahani 2.0",
       poster: "/assets/images/kahaniPoster.jpg",
       artist: "Kaifi Khalil",
       artistImg: "/assets/images/kahaniArtist.jpg",
-      release_Date: "2022",
+      releaseDate: "2022",
     },
     {
       name: "Superman",
       poster: "/assets/images/supermanPostser.jfif",
       artist: "Eminen",
       artistImg: "/assets/images/supermanArtist.jfif",
-      release_Date: "2002",
+      releaseDate: "2002",
     },
     {
       name: "Perfect",
       poster: "/assets/images/perfectPoster.jpg",
       artist: "Ed sheeran",
       artistImg: "/assets/images/perfectArtist.jpg",
-      release_Date: "2022",
+      releaseDate: "2022",
     },
   ]);
   return (

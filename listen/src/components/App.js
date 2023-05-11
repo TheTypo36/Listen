@@ -2,14 +2,14 @@ import SignIn from "./SignIn";
 import Header from "./Header";
 import Aside from "./Aside";
 import Home from "./Home";
-import Footer from "./Footer";
+import AudioPlayer from "./AudioPlayer";
 function App() {
   return (
     <div className="App">
       <Home />
       <Header />
       <Aside />
-      <Footer />
+      <AudioPlayer />
     </div>
   );
 }

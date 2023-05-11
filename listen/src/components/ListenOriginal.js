@@ -8,28 +8,28 @@ const ListenOriginal = () => {
       poster: "/assets/images/hopePoster.jpg",
       artist: "xxxtentacion",
       artistImg: "/assets/images/hopeArtist.jpg",
-      release_Date: "2018",
+      releaseDate: "2018",
     },
     {
       name: "The Search",
       poster: "/assets/images/searchPoster.jpg",
       artist: "NF",
       artistImg: "/assets/images/searchArtist.jpg",
-      release_Date: "2019",
+      releaseDate: "2019",
     },
     {
       name: "Tuesday",
       poster: "/assets/images/tuesdayPoster.jpg",
       artist: "Burak Yeter",
       artistImg: "/assets/images/tuesdayArtist.jfif",
-      release_Date: "2016",
+      releaseDate: "2016",
     },
     {
       name: "Summer High",
       poster: "/assets/images/summerHighPoster.jpg",
       artist: "Ap Dhillon",
       artistImg: "/assets/images/summerHighArtist.jpg",
-      release_Date: "2022",
+      releaseDate: "2022",
     },
   ]);
   return (
