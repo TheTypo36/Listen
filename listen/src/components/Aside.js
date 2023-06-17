@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import AddMusic from "./AddMusic";
 
-const Aside = () => {
+const Aside = ({ handlePostMusic }) => {
   return (
     <AsideContainer>
       <Logo>
@@ -29,6 +30,10 @@ const Aside = () => {
           <img src="/assets/images/liked.png" />
           <span>Liked Songs</span>
         </LikedSongs>
+        <PostMusic onClick={handlePostMusic}>
+          <img src="/assets/images/addIcon.jpg" />
+          <span>Add Music</span>
+        </PostMusic>
       </NavMenu>
     </AsideContainer>
   );
@@ -74,6 +79,7 @@ const NavMenu = styled.div`
         padding: 2px 0px;
         white-space: nowrap;
         position: relative;
+        text-decoration: none;
 
 
     &:before{
@@ -106,6 +112,9 @@ const Search = styled.a``;
 const YourLibrary = styled.a``;
 const CreatePlaylist = styled.a``;
 const LikedSongs = styled.a``;
+const PostMusic = styled.a`
+  text-decoration: none;
+`;
 const Logo = styled.div`
   margin-top: 10px;
   img {

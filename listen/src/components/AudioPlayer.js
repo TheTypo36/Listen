@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState,useEffect,useRef} from "react";
 import styled from "styled-components";
 
-const AudioPlayer = () => {
+
+const AudioPlayer = ({currentMusic}) => {
+  const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
-  // const audioSrc = "C:/Users/Administrator/Downloads/miAmor.mp3";
-  const audioSrc =
-    "https://drive.google.com/uc?export=download&id=1bFGsvE_1KROnxDujq4qoOTcUfZFjYNRn";
-  const audioRef = React.createRef();
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+
+   const audioSrc = currentMusic.audioSrc;
+
+  
+ 
+
+  
   const handlePlayAndPause = () => {
     if (playing) {
       setPlaying(false);
@@ -16,40 +24,73 @@ const AudioPlayer = () => {
       audioRef.current.play();
     }
   };
-  const PlayIcon = () => (
-    <svg viewBox="0 0 24 24">
-      <path fill="none" d="M0 0h24v24H0z" />
-      <path d="M8 5v14l11-7z" />
-    </svg>
-  );
+  const handleTimeUpdate=()=>{
+    setCurrentTime(audioRef.current.currentTime);
+   
+  }
+  const handleLoadUpData=()=>{
+    setDuration(audioRef.current.duration);
+  }
+  const handleTimeChange = (e) => {
+    const time = parseFloat(e.target.value);
+    audioRef.current.currentTime = time;
+   
+  };
+  const handleEnd = () =>{
+    audioRef.current.currentTime = 0;
+    audioRef.current.play();
+  }
+  
+  const formatTime = (time)=>{
+    const minutes = Math.floor(time/60).toString().padStart(2,'0');
+    const seconds = Math.floor(time%60).toString().padStart(2,'0');
+    return `${minutes}:${seconds}`
+  }
+  const handleChange = () =>{
+    setPlaying(true);
+    
+  }
   return (
     <AudioContainer>
       <Player>
         <AudioControl>
-          {playing ? (
-            <button onClick={handlePlayAndPause}>
-              <PlayIcon />
+          <PlayPauseController>
+
+            {playing ? (
+              <button onClick={handlePlayAndPause}>
+                <img src="/assets/images/pause.png" />
             </button>
-          ) : (
-            <button onClick={handlePlayAndPause}>
-              <i className="fas fa-play"></i>
-            </button>
-          )}
+              ) : (
+                <button onClick={handlePlayAndPause}>
+                  <img src="/assets/images/play-button.png" />
+
+                </button>
+            
+                )}
+            </PlayPauseController>
+            <VolumnController>
+
+            </VolumnController>
+
         </AudioControl>
         <AudioInfo>
           <AudioCover>
-            <img src="/assets/images/miAmorPoster.jpg" />
+            <img src={currentMusic.poster} />
           </AudioCover>
           <AudioDetail>
-            <AudioTitle>Mi Amor</AudioTitle>
-            <AudioArtist>Shann</AudioArtist>
+            <AudioTitle>{currentMusic.name}</AudioTitle>
+            <AudioArtist>{currentMusic.artist}</AudioArtist>
           </AudioDetail>
         </AudioInfo>
+          <AudioDuration>
+            <div>{formatTime(currentTime)}</div>
+            <div>{formatTime(duration)}</div>
+          </AudioDuration>
         <AudioProgress>
-          <AudioProgressBar></AudioProgressBar>
+          <input type="range" min="0" step="0.01" max={duration} value={currentTime} onChange={handleTimeChange}/>
         </AudioProgress>
       </Player>
-      <audio ref={audioRef} src={audioSrc} />
+      <audio autoPlay ref={audioRef} src={audioSrc} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadUpData} onEnded={handleEnd} onPlay={handleChange}/>
     </AudioContainer>
   );
 };
@@ -67,27 +108,41 @@ const Player = styled.div`
   border-radius: 10px;
   box-shadow: 0 2px 4px#282828;
   width: 100%;
+  position: relative;
 `;
 
 const AudioControl = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+  position: absolute;
+  left: 50%;
+  top: 10px;
+ 
   button {
+    background-color: inherit;
     border: none;
     color: #fff;
     cursor: pointer;
     font-size: 24px;
     margin: 0 10px;
+    img{
+      width: 35px;
+    }
   }
 `;
-
+const PlayPauseController = styled.div`
+`;
+const VolumnController = styled.div``;
+const AudioDuration = styled.div`
+  width: 97%;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+`;
 const AudioInfo = styled.div`
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
+
+
 `;
 const AudioDetail = styled.div`
   display: flex;
@@ -123,14 +178,17 @@ const AudioArtist = styled.div`
 const AudioProgress = styled.div`
   width: 100%;
   height: 2px;
-  background-color: #535353;
+  position: relative;
+  top: -45px;
+  input{
+    width: 97%;
+    height: 100%;
+ 
+    border-radius: 10px;
+  }
 `;
 
-const AudioProgressBar = styled.div`
-  width: 50%;
-  height: 100%;
-  background-color: #1db954;
-  border-radius: 10px;
-`;
+
+
 
 export default AudioPlayer;

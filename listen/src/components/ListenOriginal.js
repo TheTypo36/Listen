@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-const ListenOriginal = () => {
+const ListenOriginal = ({setMusic}) => {
+  console.log('props in listen origin', setMusic);
   const [song, setSong] = useState([
     {
       name: "Hope",
@@ -9,6 +10,8 @@ const ListenOriginal = () => {
       artist: "xxxtentacion",
       artistImg: "/assets/images/hopeArtist.jpg",
       releaseDate: "2018",
+      audioSrc: "/assets/audioFiles/Hope.mp3",
+    
     },
     {
       name: "The Search",
@@ -16,6 +19,7 @@ const ListenOriginal = () => {
       artist: "NF",
       artistImg: "/assets/images/searchArtist.jpg",
       releaseDate: "2019",
+      audioSrc: "/assets/audioFiles/TheSearch.mp3",
     },
     {
       name: "Tuesday",
@@ -23,6 +27,7 @@ const ListenOriginal = () => {
       artist: "Burak Yeter",
       artistImg: "/assets/images/tuesdayArtist.jfif",
       releaseDate: "2016",
+      audioSrc: "/assets/audioFiles/Tuesday.mp3",
     },
     {
       name: "Summer High",
@@ -30,14 +35,21 @@ const ListenOriginal = () => {
       artist: "Ap Dhillon",
       artistImg: "/assets/images/summerHighArtist.jpg",
       releaseDate: "2022",
+      audioSrc: "/assets/audioFiles/SummerHigh.mp3",
     },
+    
   ]);
+  const handleClick = (item) =>{
+    console.log('changed',item);
+
+    setMusic(item);
+  }
   return (
     <Wrap>
       <Title>Listen Original</Title>
       <Container>
         {song.map((item) => (
-          <MusicCard>
+          <MusicCard onClick={() => handleClick(item)}>
             <img src={item.poster} alt={item.name} />
             <div>
               <span id="songName">{item.name}</span>

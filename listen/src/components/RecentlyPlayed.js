@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-const RecentlyPlayed = () => {
+const RecentlyPlayed = ({setMusic}) => {
   const [song, setSong] = useState([
     {
       name: "Mi amor",
@@ -9,6 +9,8 @@ const RecentlyPlayed = () => {
       artist: "Sharn",
       artistImg: "/assets/images/miAmorArtist.jpg",
       releaseDate: "2022",
+      audioSrc: "https://drive.google.com/uc?export=download&id=1bFGsvE_1KROnxDujq4qoOTcUfZFjYNRn",
+
     },
     {
       name: "Kahani 2.0",
@@ -16,6 +18,8 @@ const RecentlyPlayed = () => {
       artist: "Kaifi Khalil",
       artistImg: "/assets/images/kahaniArtist.jpg",
       releaseDate: "2022",
+      audioSrc: "/assets/audioFiles/KahaniSuno.mp3",
+
     },
     {
       name: "Superman",
@@ -23,6 +27,10 @@ const RecentlyPlayed = () => {
       artist: "Eminen",
       artistImg: "/assets/images/supermanArtist.jfif",
       releaseDate: "2002",
+      audioSrc: "/assets/audioFiles/SuperMan.mp3",
+
+
+
     },
     {
       name: "Perfect",
@@ -30,14 +38,20 @@ const RecentlyPlayed = () => {
       artist: "Ed sheeran",
       artistImg: "/assets/images/perfectArtist.jpg",
       releaseDate: "2022",
+      audioSrc: "/assets/audioFiles/Perfect.mp3",
+
     },
   ]);
+  const handleClick = (item) =>{
+    console.log('changed',item);
+    setMusic(item);
+  }
   return (
     <Wrap>
       <Title>RecentlyPlayed</Title>
       <Container>
         {song.map((item) => (
-          <MusicCard>
+          <MusicCard onClick={() => handleClick(item)}>
             <img src={item.poster} alt={item.name} />
             <div>
               <span id="songName">{item.name}</span>

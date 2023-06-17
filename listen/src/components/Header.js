@@ -21,13 +21,18 @@ const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 11111;
 `;
 const Logo = styled.a`
   padding: 0;
-  width: 40px;
+  
+  margin-right: 10px;
   img {
     border-radius: 50%;
-    width: 100%;
+    height: 40px;
+    width: 40px;
+
+    object-fit: cover;
   }
 `;
 

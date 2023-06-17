@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import RecentlyPlayed from "./RecentlyPlayed";
 import ListenOriginal from "./ListenOriginal";
 
-const Home = () => {
+const Home = (props) => {
   return (
     <Container>
-      <RecentlyPlayed />
-      <ListenOriginal />
+      {console.log('props',props)}
+      <RecentlyPlayed  setMusic={props.setMusic}/>
+      <ListenOriginal setMusic={props.setMusic}/>
     </Container>
   );
 };
