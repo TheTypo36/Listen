@@ -1,4 +1,5 @@
 import express from "express";
+import path from 'path';
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -10,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 const PORT = 6505;
 const CONNECTION_URL =
-  "mongodb+srv://thetypo36:36ashish@cluster0.x2imt4b.mongodb.net/test";
+  "mongodb+srv://thetypo36:36ashish@cluster0.x2imt4b.mongodb.net/";
 mongoose.connect(CONNECTION_URL, {
   useNewUrlParser: true,
 });
@@ -23,4 +24,5 @@ mongoose.connection.on("error", (err) => {
 });
 app.listen(PORT, () => {
   console.log(`server running at port ${PORT}`);
+  console.log(path.__filename);
 });

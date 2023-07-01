@@ -70,7 +70,7 @@ const Container = styled.div`
   gap: 25px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   width: 65%;
-  @media (max-width: 1300px) {
+  @media (max-width: 1500px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   @media (max-width: 1100px) {
@@ -118,16 +118,18 @@ const MusicCard = styled.div`
     background-color: #282828;
     border-color: rgba(249, 249, 249, 0.8);
   }
-
-  width: 220px;
+  width: 50%
+  min-width: 220px;
 
   height: 150px;
-  @media (max-width: 1300px) {
-    width: 350px;
+  @media (max-width: 1500px) {
+    width: 100%;
+     min-width: 350px;
     height: 100px;
   }
   @media (max-width: 1100px) {
-    width: 450px;
+    width: 100%;
+     min-width: 450px;
     height: 100px;
   }
   // background-color: #171717;

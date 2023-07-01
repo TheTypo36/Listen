@@ -23,5 +23,6 @@ const Container = styled.div`
   top: 70px;
   padding-left: 280px;
   padding-bottom: 120px;
+  background: linear-gradient(rgba(255, 255, 255, 0.1) 0%, rgb(0, 0, 0) 100%);
 `;
 export default Home;

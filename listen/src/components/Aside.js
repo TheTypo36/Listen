@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import AddMusic from "./AddMusic";
 
 const Aside = ({ handlePostMusic }) => {
@@ -11,7 +12,7 @@ const Aside = ({ handlePostMusic }) => {
       <NavMenu>
         <Home>
           <img src="/assets/images/home.png" />
-          <span>Home</span>
+          <Link to="/"><span>Home</span></Link>
         </Home>
         <Search>
           <img src="/assets/images/search.png" />
@@ -32,8 +33,9 @@ const Aside = ({ handlePostMusic }) => {
         </LikedSongs>
         <PostMusic onClick={handlePostMusic}>
           <img src="/assets/images/addIcon.jpg" />
-          <span>Add Music</span>
+          <Link to="/addMusic"><span>Add Music</span></Link>
         </PostMusic>
+    
       </NavMenu>
     </AsideContainer>
   );
@@ -107,13 +109,21 @@ const NavMenu = styled.div`
     }
   }
 `;
-const Home = styled.a``;
+const Home = styled.a`
+a{
+    text-decoration: none;
+    
+  }
+`;
 const Search = styled.a``;
 const YourLibrary = styled.a``;
 const CreatePlaylist = styled.a``;
 const LikedSongs = styled.a``;
 const PostMusic = styled.a`
+a{
   text-decoration: none;
+  
+}
 `;
 const Logo = styled.div`
   margin-top: 10px;

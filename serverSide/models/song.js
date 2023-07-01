@@ -1,30 +1,34 @@
 import mongoose from "mongoose";
 
 const songSchema = mongoose.Schema({
-  name: {
+  songName: {
     type: String,
     required: true,
   },
-  poster: {
+  artistName: {
     type: String,
     required: true,
   },
-  artist: {
+  songUrl: {
     type: String,
     required: true,
   },
-  releaseDate: {
-    type: Number,
-    required: true,
-  },
-  artistImg: {
+  posterUrl: {
     type: String,
     required: true,
   },
-  playCount: {
-    type: Number,
+  artistImgUrl: {
+    type: String,
     required: true,
   },
+  songLabel: {
+    type: String,
+    required: true,
+  },
+  // playCount: {
+  //   type: Number,
+  //   required: true,
+  // },
 });
 
 const Song = mongoose.model("Song", songSchema);
