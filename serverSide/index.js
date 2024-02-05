@@ -1,4 +1,5 @@
 import express from "express";
+
 import path from 'path';
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -6,6 +7,8 @@ import cors from "cors";
 import routes from "./routes/index.js";
 
 const app = express();
+
+
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(cors());
@@ -15,6 +18,7 @@ const CONNECTION_URL =
 mongoose.connect(CONNECTION_URL, {
   useNewUrlParser: true,
 });
+// app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 app.use("/", routes);
 mongoose.connection.on("connect", () => {
   console.log("successfull connection to mongdb");
@@ -24,5 +28,5 @@ mongoose.connection.on("error", (err) => {
 });
 app.listen(PORT, () => {
   console.log(`server running at port ${PORT}`);
-  console.log(path.__filename);
+  
 });

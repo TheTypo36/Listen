@@ -1,7 +1,9 @@
 import React ,{useState,useEffect} from "react";
 import styled from "styled-components";
 import instance from '../api/Axios'
+import {useNavigate} from 'react-router-dom';
 const AddMusic = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     songName: "",
     poster: null,
@@ -44,10 +46,13 @@ const AddMusic = () => {
     })
       .then((Response)=>{
         console.log(Response.data);
+        navigate('/');
       })
       .catch((error)=>{
         console.error(error);
       })
+
+
   }
 
   return <AddMusicContainer>
@@ -76,8 +81,8 @@ const AddMusic = () => {
         </div>
         <div id="songLabel">
           <label>Song label</label>
-            <input type="radio" name="songLabel" value="recentlyPlayed" />Recently Played
-            <input type="radio" name="songLabel" value="ListenOriginal" />Listen Original
+            <input type="radio" name="songLabel" value="RecentlyPlayed" onChange={changeHandler} />Recently Played
+            <input type="radio" name="songLabel" value="ListenOriginal" onChange={changeHandler} />Listen Original
 
         </div>
         <button type="submit">Upload</button>
@@ -105,9 +110,7 @@ const AddMusicContainer= styled.div`
     display: block;
     
   }
-  input[type="file"] {
-    background-color: lightgeen;
-  }
+
 
 `;
 

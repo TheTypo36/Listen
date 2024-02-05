@@ -3,13 +3,40 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import RecentlyPlayed from "./RecentlyPlayed";
 import ListenOriginal from "./ListenOriginal";
+import instance from "../api/Axios";
 
-const Home = (props) => {
+const Home = ({setplayingSong}) => {
+  const [songs,setSongs] = useState([]);
+
+  useEffect(()=>{
+
+    const fetchSong = async () =>{
+      try{
+
+        const Response = await instance.get('/song/getSong')
+        
+        // console.log('homeGetSongResponse', Response);
+        setSongs(Response.data.songs);
+        
+      }catch(err){
+        console.log(err);
+      }
+    }
+    fetchSong();
+
+    },[]);
+  
+
   return (
     <Container>
-      {console.log('props',props)}
-      <RecentlyPlayed  setMusic={props.setMusic}/>
-      <ListenOriginal setMusic={props.setMusic}/>
+ 
+
+           <RecentlyPlayed  songs={songs} setplayingSong={setplayingSong}/>
+    
+
+          <ListenOriginal songs={songs} setplayingSong={setplayingSong}/>
+      
+
     </Container>
   );
 };

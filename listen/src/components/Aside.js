@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import AddMusic from "./AddMusic";
 
-const Aside = ({ handlePostMusic }) => {
+const Aside = () => {
   return (
     <AsideContainer>
       <Logo>
@@ -31,7 +31,7 @@ const Aside = ({ handlePostMusic }) => {
           <img src="/assets/images/liked.png" />
           <span>Liked Songs</span>
         </LikedSongs>
-        <PostMusic onClick={handlePostMusic}>
+        <PostMusic>
           <img src="/assets/images/addIcon.jpg" />
           <Link to="/addMusic"><span>Add Music</span></Link>
         </PostMusic>

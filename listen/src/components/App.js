@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,jsx} from "react";
 import {Route,Router,Routes} from "react-router-dom";
 import SignIn from "./SignIn";
 import Header from "./Header";
@@ -6,9 +6,10 @@ import Aside from "./Aside";
 import Home from "./Home";
 import AudioPlayer from "./AudioPlayer";
 import AddMusic from "./AddMusic";
+import Detail from "./Detail";
 function App() {
 
-  const [currentMusic,setMusic] = useState( {
+  const [playingSong,setplayingSong] = useState( {
     name: "Hope",
     poster: "/assets/images/hopePoster.jpg",
     artist: "xxxtentacion",
@@ -17,25 +18,24 @@ function App() {
     audioSrc: "/assets/audioFiles/Hope.mp3",
   
   });
-  const handlePostMusic = (Event) => {
-  }
-    
   return (
     <div className="App">
 
 
     <Routes>
 
-      <Route exact path = "/" element={<Home currentMusic={currentMusic} setMusic={setMusic} />} />
+      <Route exact path = "/" element={<Home playingSong={playingSong} setplayingSong={setplayingSong} />} />
       <Route path = "/addMusic" element={<AddMusic />} />
-     
+      <Route path ="/detail" element={<Detail />} />
     </Routes>
 
       <Header />
-      <Aside handlePostMusic={handlePostMusic} />
-      <AudioPlayer currentMusic={currentMusic}/>
+      <Aside  />
+      <AudioPlayer playingSong={playingSong}/>
     </div>
   );
 }
 
+
 export default App;
+

@@ -2,18 +2,23 @@ import React, { useState,useEffect,useRef} from "react";
 import styled from "styled-components";
 
 
-const AudioPlayer = ({currentMusic}) => {
+const AudioPlayer = ({playingSong}) => {
+  //  console.log('playsong', playingSong)
+  const [lastSong,setLastSong] = useState({});
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.5);
+  useEffect(()=>{
+
+    setLastSong(playingSong);
+    console.log(lastSong);
+  },[playingSong])
+  const audioSrc = lastSong.songUrl;
 
 
-   const audioSrc = currentMusic.audioSrc;
-
-
-
+   //console.log(`audioSrc is ${audioSrc}`);
 
 
   const handlePlayAndPause = () => {
@@ -60,14 +65,16 @@ const AudioPlayer = ({currentMusic}) => {
   return (
     <AudioContainer>
 
-      <AudioInfo>
-          <AudioCover>
-            <img src={currentMusic.poster} />
-          </AudioCover>
-          <AudioDetail>
-            <AudioTitle>{currentMusic.name}</AudioTitle>
-            <AudioArtist>{currentMusic.artist}</AudioArtist>
-          </AudioDetail>
+
+
+        <AudioInfo>
+            <AudioCover>
+              <img src={lastSong.posterUrl} />
+            </AudioCover>
+            <AudioDetail>
+              <AudioTitle>{lastSong.songName}</AudioTitle>
+              <AudioArtist>{lastSong.artistName}</AudioArtist>
+            </AudioDetail>
         </AudioInfo>
         <AudioControl>
           <PlayPauseController>
@@ -75,24 +82,25 @@ const AudioPlayer = ({currentMusic}) => {
             {playing ? (
               <button onClick={handlePlayAndPause}>
                 <img src="/assets/images/pause.png" />
-            </button>
+              </button>
               ) : (
                 <button onClick={handlePlayAndPause}>
                   <img src="/assets/images/play-button.png" />
 
                 </button>
 
-                )}
+              )}
             </PlayPauseController>
+            <AudioDuration>
+               <div>{formatTime(currentTime)}</div>
+               <AudioProgress>
+                  <input type="range" min="0" step="0.01" max={duration} value={currentTime} onChange={handleTimeChange}/>
+               </AudioProgress>
+               <div>{formatTime(duration)}</div>
+            </AudioDuration>
 
         </AudioControl>
-            <AudioDuration>
-            <div>{formatTime(currentTime)}</div>
-            <div>{formatTime(duration)}</div>
-          </AudioDuration>
-        <AudioProgress>
-          <input type="range" min="0" step="0.01" max={duration} value={currentTime} onChange={handleTimeChange}/>
-        </AudioProgress>
+           
         <VolumnController>
                   <img src="/assets/images/audio.png" />
                   <input type="range" max = "1" min="0" step="0.01" value={volume} onChange={handleVolumeChange} />
@@ -101,32 +109,37 @@ const AudioPlayer = ({currentMusic}) => {
 
 
       <audio autoPlay ref={audioRef} src={audioSrc} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadUpData} onEnded={handleEnd} onPlay={handleChange}/>
+      
+
     </AudioContainer>
   );
 };
-const AudioContainer = styled.div`
+const AudioContainer = styled.footer`
   position: fixed;
   bottom: 0;
+  display: flex;
+  height: auto;
   width: 100%;
-  height: 72px;
-  padding: 13px;
-  border-radius: 10px;
+  min-width: 620px;
+ 
+
   z-index: 11;
 
   background-color: rgba(0, 0, 0, 0.7);
   box-shadow: 0 2px 4px#282828;
-
-  display: flex;
+  border-sizing: border-box;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
   `;
 
 
 const AudioControl = styled.div`
-  position: absolute;
-  left: 0;
-  top: 10%;
-  width: 100%;
+
+
+
+  max-width: 722px;
+  width: 40%;
   button {
     background-color: inherit;
     border: none;
@@ -140,64 +153,28 @@ const AudioControl = styled.div`
     }
   }
 `;
-const PlayPauseController = styled.div`
-`;
-const VolumnController = styled.div`
-
-  position: relative;
-  left: -30px;
-  top: 30%;
-  display: flex;
-  flex-direction: row;
-  input{
-    height: 3px;
-    margin-top: 18px;
-  }
-  img{
-    height: 20px;
-    margin: 10px
-  }
-  @media (max-width: 950px){
-    input{
-      width: 50px;
-    }
-  }
-`;
-const AudioDuration = styled.div`
-  font-size: 12px;
-  width: 47%;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-    top: 57px;
-    left: 26%;
-    @media (max-width: 1100px){
-      width: 50%;
-      left: 24.5%;
-    }
-}
-`;
 const AudioInfo = styled.div`
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
-
+  min-width: 180px;
+  width: 30%;
 
 `;
 const AudioDetail = styled.div`
+  
   display: flex;
   flex-direction: column;
 `;
 const AudioTitle = styled.div`
   color: #fff;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   margin-bottom: 5px;
 `;
 const AudioCover = styled.div`
   height: 70px;
-  position: relative;
+   position: relative;
   width: 70px;
   margin-right: 15px;
 
@@ -216,25 +193,63 @@ const AudioArtist = styled.div`
   font-size: 14px;
 `;
 
-const AudioProgress = styled.div`
-  width: 43%;
-  height: 3px;
-  position: relative;
-  top: 25px;
-  input{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: 12px;
+const PlayPauseController = styled.div`
+`;
+const VolumnController = styled.div`
 
-    border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-item: center;
+  width: 30%;
+
+  input{
+    height: 3px;
+    margin-top: 18px;
+  }
+  img{
+    height: 20px;
+    margin: 10px
   }
   @media (max-width: 950px){
     input{
-      left: -10%;
+      width: 50px;
     }
+  }
+`;
+const AudioDuration = styled.div`
+  font-size: 12px;
+  width: 100%;
+  min-width: inherit;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+    top: 57px;
+    left: 25.5%;
+   
+}
 `;
 
+const AudioProgress = styled.div`
+  width: 98%;
+  min-width: calc(inherit-10px);
+  height: 3px;
+  position: relative;
+  left: 3px;
+  top: -9px;
+  
+  input {
+    width: inherit;
+    height: 100%;
+ 
+   
+    border-radius: 10px;
+  }
+ 
+  }
+`;
 
 
 

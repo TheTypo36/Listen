@@ -1,62 +1,47 @@
 import React from "react";
+import { Routes,useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-const ListenOriginal = ({setMusic}) => {
-  console.log('props in listen origin', setMusic);
-  const [song, setSong] = useState([
-    {
-      name: "Hope",
-      poster: "/assets/images/hopePoster.jpg",
-      artist: "xxxtentacion",
-      artistImg: "/assets/images/hopeArtist.jpg",
-      releaseDate: "2018",
-      audioSrc: "/assets/audioFiles/Hope.mp3",
-    
-    },
-    {
-      name: "The Search",
-      poster: "/assets/images/searchPoster.jpg",
-      artist: "NF",
-      artistImg: "/assets/images/searchArtist.jpg",
-      releaseDate: "2019",
-      audioSrc: "/assets/audioFiles/TheSearch.mp3",
-    },
-    {
-      name: "Tuesday",
-      poster: "/assets/images/tuesdayPoster.jpg",
-      artist: "Burak Yeter",
-      artistImg: "/assets/images/tuesdayArtist.jfif",
-      releaseDate: "2016",
-      audioSrc: "/assets/audioFiles/Tuesday.mp3",
-    },
-    {
-      name: "Summer High",
-      poster: "/assets/images/summerHighPoster.jpg",
-      artist: "Ap Dhillon",
-      artistImg: "/assets/images/summerHighArtist.jpg",
-      releaseDate: "2022",
-      audioSrc: "/assets/audioFiles/SummerHigh.mp3",
-    },
-    
-  ]);
+const ListenOriginal = ({setplayingSong,songs}) => {
+  const navigate = useNavigate();
+  console.log('props in listen origin', setplayingSong);
+  
   const handleClick = (item) =>{
-    console.log('changed',item);
+    console.log('changed listen',item);
 
-    setMusic(item);
+    setplayingSong(item);
+    navigate('/detail',{
+      state:{
+        item: item,
+      }
+    });
   }
+  console.log('listenOriginal', songs);
   return (
     <Wrap>
+     
       <Title>Listen Original</Title>
       <Container>
-        {song.map((item) => (
-          <MusicCard onClick={() => handleClick(item)}>
-            <img src={item.poster} alt={item.name} />
+        {songs.map((item) => {
+          if(item.songLabel=="ListenOriginal"){
+            const itemPosterUrl = item.posterUrl.replace(/C:\\Users\\Administrator\\Desktop\\Listen\\listen\\public/, "");
+            const itemSongUrl = item.songUrl.replace(/C:\\Users\\Administrator\\Desktop\\Listen\\listen\\public/, "");
+             const itemArtistImg =  item.artistImgUrl.replace(/C:\\Users\\Administrator\\Desktop\\Listen\\listen\\public/, "");
+             item.posterUrl = itemPosterUrl;
+             item.songUrl = itemSongUrl;
+             item.artistImgUrl = itemArtistImg;
+            
+            return(
+            <MusicCard onClick={() => handleClick(item)}>
+            <img src={item.posterUrl} alt={item.artistName} />
             <div>
-              <span id="songName">{item.name}</span>
-              <span id="artistName">{item.artist}</span>
+            <span id="songName">{item.songName}</span>
+            <span id="artistName">{item.artistName}</span>
             </div>
-          </MusicCard>
-        ))}
+            </MusicCard>
+        );
+        }
+          })}
       </Container>
     </Wrap>
   );

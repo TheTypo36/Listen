@@ -1,64 +1,45 @@
 import React from "react";
 import styled from "styled-components";
+
 import { useState, useEffect } from "react";
-const RecentlyPlayed = ({setMusic}) => {
-  const [song, setSong] = useState([
-    {
-      name: "Mi amor",
-      poster: "/assets/images/miAmorPoster.jpg",
-      artist: "Sharn",
-      artistImg: "/assets/images/miAmorArtist.jpg",
-      releaseDate: "2022",
-      audioSrc: "https://drive.google.com/uc?export=download&id=1bFGsvE_1KROnxDujq4qoOTcUfZFjYNRn",
+import { useNavigate } from "react-router-dom";
 
-    },
-    {
-      name: "Kahani 2.0",
-      poster: "/assets/images/kahaniPoster.jpg",
-      artist: "Kaifi Khalil",
-      artistImg: "/assets/images/kahaniArtist.jpg",
-      releaseDate: "2022",
-      audioSrc: "/assets/audioFiles/KahaniSuno.mp3",
-
-    },
-    {
-      name: "Superman",
-      poster: "/assets/images/supermanPostser.jfif",
-      artist: "Eminen",
-      artistImg: "/assets/images/supermanArtist.jfif",
-      releaseDate: "2002",
-      audioSrc: "/assets/audioFiles/SuperMan.mp3",
-
-
-
-    },
-    {
-      name: "Perfect",
-      poster: "/assets/images/perfectPoster.jpg",
-      artist: "Ed sheeran",
-      artistImg: "/assets/images/perfectArtist.jpg",
-      releaseDate: "2022",
-      audioSrc: "/assets/audioFiles/Perfect.mp3",
-
-    },
-  ]);
+const RecentlyPlayed = ({setplayingSong,songs}) => {
+  const navigate = useNavigate();
   const handleClick = (item) =>{
-    console.log('changed',item);
-    setMusic(item);
+    console.log('changed recent',item);
+    setplayingSong(item);
+    navigate('/detail',{        
+    state: {
+      item: item,
+      
+    }
+  }
+);
   }
   return (
     <Wrap>
       <Title>RecentlyPlayed</Title>
       <Container>
-        {song.map((item) => (
-          <MusicCard onClick={() => handleClick(item)}>
-            <img src={item.poster} alt={item.name} />
+        {songs.map((item) => {
+          console.log('songsRR',item.posterUrl);
+          if(item.songLabel=="RecentlyPlayed"){
+          const itemPosterUrl = item.posterUrl.replace(/C:\\Users\\Administrator\\Desktop\\Listen\\listen\\public/, "");
+          const itemSongUrl = item.songUrl.replace(/C:\\Users\\Administrator\\Desktop\\Listen\\listen\\public/, "");
+          const itemArtistImg =  item.artistImgUrl.replace(/C:\\Users\\Administrator\\Desktop\\Listen\\listen\\public/, "");
+         item.posterUrl = itemPosterUrl;
+         item.songUrl = itemSongUrl;
+         item.artistImgUrl = itemArtistImg;
+          return(<MusicCard onClick={() => handleClick(item)}>
+            <img src={item.posterUrl} alt={item.name} />
             <div>
-              <span id="songName">{item.name}</span>
-              <span id="artistName">{item.artist}</span>
+              <span id="songName">{item.songName}</span>
+              <span id="artistName">{item.artistName}</span>
             </div>
           </MusicCard>
-        ))}
+          );  
+    }
+    })}
       </Container>
     </Wrap>
   );
