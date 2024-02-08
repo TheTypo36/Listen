@@ -30,9 +30,7 @@ const Detail = () => {
 
             </HeaderSection>
             <MidSection>
-                <PlayButton>
-                    
-                </PlayButton>
+              
                 
             </MidSection>
             <FooterSection>
@@ -42,7 +40,11 @@ const Detail = () => {
                 </div>
             </FooterSection>
         </DetailContainer>
-       
+        <videoSection>
+            <video>
+                <source type="video/mp3" src="" />
+            </video>
+        </videoSection>
     </container>
     
 );
